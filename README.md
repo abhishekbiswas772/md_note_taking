@@ -96,3 +96,7 @@ Import `Note_Taking_API.postman_collection.json` into Postman for testing.
 | MINIO_BUCKET_NAME | Bucket name | notes-bucket |
 | MINIO_SECURE | Use HTTPS | false |
 | DATABASE_URL | Database connection | sqlite:///notes.db |
+
+
+The Project idea has came from roadmap.sh here is the link for the project details idea  `https://roadmap.sh/projects/markdown-note-taking-app`
+
