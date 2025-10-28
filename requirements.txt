@@ -1,0 +1,10 @@
+flask
+Flask-WTF
+flask-smorest
+Flask-SQLAlchemy
+language-tool-python
+markdown2
+python-dotenv
+psycopg2-binary
+minio
+flask-cors

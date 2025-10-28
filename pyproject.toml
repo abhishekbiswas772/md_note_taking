@@ -1,0 +1,18 @@
+[project]
+name = "md-note-taking"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flask>=3.1.2",
+    "flask-cors>=6.0.1",
+    "flask-smorest>=0.46.2",
+    "flask-sqlalchemy>=3.1.1",
+    "flask-wtf>=1.2.2",
+    "language-tool-python>=2.9.4",
+    "markdown2>=2.5.4",
+    "minio>=7.2.18",
+    "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.2.1",
+]

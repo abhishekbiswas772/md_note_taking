@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Note Taking API",
+		"description": "API collection for Markdown Note Taking Service with MinIO storage",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Note",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/notes/create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"create"
+					]
+				},
+				"description": "Upload a markdown (.md) file. The file will be saved temporarily, uploaded to MinIO, and a backup will be created."
+			},
+			"response": [
+				{
+					"name": "Success Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"notes_path\": \"/path/to/your/note.md\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notes/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notes",
+								"create"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": true,\n    \"document_id\": \"abc-123-def-456\",\n    \"message\": \"document saved successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Check Grammar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/notes/{{document_id}}/grammar-check",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"{{document_id}}",
+						"grammar-check"
+					]
+				},
+				"description": "Check grammar and spelling errors in a note using LanguageTool. Returns detailed error analysis with suggestions and corrected text."
+			},
+			"response": [
+				{
+					"name": "Success Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notes/abc-123-def/grammar-check",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notes",
+								"abc-123-def",
+								"grammar-check"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"note_id\": \"abc-123-def\",\n    \"original_text\": \"# Meeting Notes\\n\\nI has went to the store yesterday.\",\n    \"corrected_text\": \"# Meeting Notes\\n\\nI went to the store yesterday.\",\n    \"statistics\": {\n        \"total_errors\": 2,\n        \"grammar_errors\": 2,\n        \"spelling_errors\": 0,\n        \"style_errors\": 0\n    },\n    \"errors\": [\n        {\n            \"error_id\": 1,\n            \"type\": \"grammar\",\n            \"category\": \"GRAMMAR\",\n            \"message\": \"Subject-verb agreement\",\n            \"context\": \"I has went to the store\",\n            \"offset\": 18,\n            \"length\": 8,\n            \"original\": \"has went\",\n            \"suggestions\": [\n                \"went\",\n                \"have gone\"\n            ],\n            \"rule\": \"SUBJECT_VERB_AGREEMENT\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Render Note as HTML",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/notes/{{document_id}}/render",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"{{document_id}}",
+						"render"
+					]
+				},
+				"description": "Render the markdown note as a styled HTML page. Returns HTML content that can be viewed directly in the browser."
+			},
+			"response": [
+				{
+					"name": "Success Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notes/abc-123-def/render",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notes",
+								"abc-123-def",
+								"render"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html"
+						}
+					],
+					"cookie": [],
+					"body": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Note - abc-123-def</title>\n    <style>...</style>\n</head>\n<body>\n    <div class=\"container\">\n        <h1>Meeting Notes</h1>\n        <p>This is the rendered content...</p>\n    </div>\n</body>\n</html>"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "document_id",
+			"value": "your-document-id-here",
+			"type": "string"
+		}
+	]
+}
